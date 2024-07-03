@@ -1,9 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LandingPage from './Components/LandingPage';
-import DomainList from './Components/DomainList';
 import Navbar from './Components/NavBar/Navbar';
 import LoginPage from './Components/LoginPage';
+import LandingPage from './Components/LandingPage';
+import DomainList from './Components/DomainList';
+import DomainDetails from './Components/DomainDetails';
+// import DomainDetails from './components/DomainDetails';
+// import DomainDetails from './components/DomainDetails';
+DomainDetails
 
 
 function App() {
@@ -16,6 +20,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/domains" element={<DomainList />} />
+            <Route path="/domains/:domainName" element={<DomainDetails />} />
           </Routes>
         </div>
       </div>

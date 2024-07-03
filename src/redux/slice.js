@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getDomains } from '../ApiConfig';
+import { getDomains, getDomainDetails } from '../ApiConfig';
 
 export const fetchDomains = createAsyncThunk(
   'domains/fetchDomains',
@@ -9,10 +9,19 @@ export const fetchDomains = createAsyncThunk(
   }
 );
 
+export const fetchDomainDetails = createAsyncThunk(
+  'domains/fetchDomainDetails',
+  async (domainName) => {
+    const response = await getDomainDetails(domainName);
+    return response;
+  }
+);
+
 const domainsSlice = createSlice({
   name: 'domains',
   initialState: {
     domains: [],
+    domainDetails: [],
     status: 'idle',
     error: null,
   },
@@ -27,6 +36,17 @@ const domainsSlice = createSlice({
         state.domains = action.payload;
       })
       .addCase(fetchDomains.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchDomainDetails.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchDomainDetails.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.domainDetails = action.payload;
+      })
+      .addCase(fetchDomainDetails.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

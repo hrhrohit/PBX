@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchDomains } from '../redux/slice';
 
 const DomainList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { domains, status, error } = useSelector((state) => state.domains);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDomains, setFilteredDomains] = useState({});
@@ -29,6 +31,10 @@ const DomainList = () => {
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const handleDomainClick = (domainName) => {
+    navigate(`/domains/${domainName}`);
   };
 
   if (status === 'loading') {
@@ -60,7 +66,11 @@ const DomainList = () => {
         </thead>
         <tbody>
           {Object.entries(filteredDomains).map(([key, domain]) => (
-            <tr key={key} className="border-b border-gray-200 hover:bg-gray-50">
+            <tr 
+              key={key} 
+              className="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
+              onClick={() => handleDomainClick(domain.domain)}
+            >
               <td className="py-2 px-4 text-blue-600">{domain.domain}</td>
               <td className="py-2 px-4">{domain.description}</td>
             </tr>
