@@ -5,10 +5,8 @@ import LoginPage from './Components/LoginPage';
 import LandingPage from './Components/LandingPage';
 import DomainList from './Components/DomainList';
 import DomainDetails from './Components/DomainDetails';
-// import DomainDetails from './components/DomainDetails';
-// import DomainDetails from './components/DomainDetails';
-DomainDetails
-
+import AddRuleForm from './Components/Forms/AddRuleForm';
+import EditRuleForm from './Components/Forms/EditRuleForm';
 
 function App() {
   return (
@@ -20,7 +18,9 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/domains" element={<DomainList />} />
-            <Route path="/domains/:domainName" element={<DomainDetails />} />
+            <Route path="/domains/domainDetails" element={<DomainDetails />} />
+            <Route path="/domains/add-rule" element={<AddRuleForm />} />
+            <Route path="/domains/editrule" element={<EditRuleForm />} />
           </Routes>
         </div>
       </div>

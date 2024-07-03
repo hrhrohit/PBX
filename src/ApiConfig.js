@@ -73,3 +73,46 @@ export const getDomainDetails = async (domainName) => {
     throw error;
   }
 };
+
+export const createDialRule = async (ruleData) => {
+  try {
+    const accessToken = await getPbxAccessToken();
+    const response = await axios.post(`${PBX_BASE_URL}/ns-api/`, null, {
+      params: {
+        format: 'json',
+        object: 'dialrule',
+        action: 'create',
+        ...ruleData
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating dial rule:', error);
+    throw error;
+  }
+};
+
+
+export const updateDialRule = async (ruleData) => {
+  try {
+    const accessToken = await getPbxAccessToken();
+    const response = await axios.post(`${PBX_BASE_URL}/ns-api/`, null, {
+      params: {
+        format: 'json',
+        object: 'dialrule',
+        action: 'update',
+        ...ruleData
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating dial rule:', error);
+    throw error;
+  }
+};

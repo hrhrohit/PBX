@@ -34,7 +34,7 @@ const DomainList = () => {
   };
 
   const handleDomainClick = (domainName) => {
-    navigate(`/domains/${domainName}`);
+    navigate(`/domains/domainDetails`, { state: { domainName } });
   };
 
   if (status === 'loading') {
