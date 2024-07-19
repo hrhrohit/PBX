@@ -95,7 +95,6 @@ export const createDialRule = async (ruleData) => {
   }
 };
 
-
 export const updateDialRule = async (ruleData) => {
   try {
     const accessToken = await getPbxAccessToken();
@@ -113,6 +112,27 @@ export const updateDialRule = async (ruleData) => {
     return response.data;
   } catch (error) {
     console.error('Error updating dial rule:', error);
+    throw error;
+  }
+};
+
+export const deleteDialRule = async (ruleData) => {
+  try {
+    const accessToken = await getPbxAccessToken();
+    const response = await axios.post(`${PBX_BASE_URL}/ns-api/`, null, {
+      params: {
+        format: 'json',
+        object: 'dialplan',
+        action: 'delete',
+        ...ruleData
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting dial rule:', error);
     throw error;
   }
 };

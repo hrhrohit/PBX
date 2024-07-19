@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateDialRule } from '../../redux/slice';
+import { updateDialRule, deleteDialRule } from '../../redux/slice';
 
 const EditRuleForm = () => {
   const navigate = useNavigate();
@@ -36,15 +36,26 @@ const EditRuleForm = () => {
       ...formData,
       dialplan: domainName,
       domain: domainName,
-      matchrule: rule.matchrule // Ensure matchrule is included and unchanged
+      matchrule: rule.matchrule
     };
     try {
       await dispatch(updateDialRule(updateData)).unwrap();
-      // Navigate back to the domain details page after successful update
       navigate('/domains/domainDetails', { state: { domainName } });
     } catch (error) {
       console.error('Error updating dial rule:', error);
       alert('Failed to update dial rule. Please try again.');
+    }
+  };
+
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure you want to delete this rule?')) {
+      try {
+        await dispatch(deleteDialRule(rule)).unwrap();
+        navigate('/domains/domainDetails', { state: { domainName } });
+      } catch (error) {
+        console.error('Error deleting dial rule:', error);
+        alert('Failed to delete dial rule. Please try again.');
+      }
     }
   };
 
@@ -122,6 +133,13 @@ const EditRuleForm = () => {
             className="mr-3 py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Cancel
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="mr-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Delete
           </button>
           <button
             type="submit"

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getDomains, getDomainDetails, createDialRule as createDialRuleApi, updateDialRule as updateDialRuleApi } from '../ApiConfig';
+import { getDomains, getDomainDetails, createDialRule as createDialRuleApi, updateDialRule as updateDialRuleApi, deleteDialRule as deleteDialRuleApi } from '../ApiConfig';
 
 export const fetchDomains = createAsyncThunk(
   'domains/fetchDomains',
@@ -29,6 +29,14 @@ export const updateDialRule = createAsyncThunk(
   'domains/updateDialRule',
   async (ruleData) => {
     const response = await updateDialRuleApi(ruleData);
+    return response;
+  }
+);
+
+export const deleteDialRule = createAsyncThunk(
+  'domains/deleteDialRule',
+  async (ruleData) => {
+    const response = await deleteDialRuleApi(ruleData);
     return response;
   }
 );
@@ -83,6 +91,16 @@ const domainsSlice = createSlice({
         state.status = 'succeeded';
       })
       .addCase(updateDialRule.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(deleteDialRule.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(deleteDialRule.fulfilled, (state) => {
+        state.status = 'succeeded';
+      })
+      .addCase(deleteDialRule.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
