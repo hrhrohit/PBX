@@ -7,6 +7,7 @@ import DomainList from './Components/DomainList';
 import DomainDetails from './Components/DomainDetails';
 import AddRuleForm from './Components/Forms/AddRuleForm';
 import EditRuleForm from './Components/Forms/EditRuleForm';
+import CIDForm from './Components/Forms/Custom/CIDForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/domains/domainDetails" element={<DomainDetails />} />
             <Route path="/domains/add-rule" element={<AddRuleForm />} />
             <Route path="/domains/editrule" element={<EditRuleForm />} />
+            <Route path="/domains/cid-campaign" element={<CIDForm />} />
           </Routes>
         </div>
       </div>

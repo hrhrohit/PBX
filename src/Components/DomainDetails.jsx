@@ -14,6 +14,7 @@ const DomainDetails = () => {
   const [searchField, setSearchField] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredDetails, setFilteredDetails] = useState([]);
+  const [showCustomRules, setShowCustomRules] = useState(false);
 
   useEffect(() => {
     if (domainName) {
@@ -71,6 +72,14 @@ const DomainDetails = () => {
     navigate('/domains/add-rule', { state: { domainName } });
   };
 
+  const handleCustomRules = () => {
+    setShowCustomRules(!showCustomRules);
+  };
+
+  const handleCIDCampaign = () => {
+    navigate('/domains/cid-campaign', { state: { domainName } });
+  };
+
   if (!domainName) {
     return <div className="text-center mt-8 text-red-600">Error: Domain name not provided</div>;
   }
@@ -107,12 +116,28 @@ const DomainDetails = () => {
               placeholder="Search..."
             />
           </div>
-          <button 
-            onClick={handleAddRule}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-          >
-            Add Rule
-          </button>
+          <div className="flex space-x-2">
+            <button 
+              onClick={handleAddRule}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              Add Rule
+            </button>
+            <button 
+              onClick={handleCustomRules}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+            >
+              Custom Rules
+            </button>
+            {showCustomRules && (
+              <button 
+                onClick={handleCIDCampaign}
+                className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors"
+              >
+                CID Campaign
+              </button>
+            )}
+          </div>
         </div>
         <CSVLink 
           data={filteredDetails} 
