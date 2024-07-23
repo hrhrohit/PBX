@@ -6,8 +6,14 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    if (location.pathname === '/domains') {
+    const path = location.pathname;
+    
+    if (path === '/landing') {
+      navigate('/');
+    } else if (path === '/domains') {
       navigate('/landing');
+    } else if (path.startsWith('/domains/')) {
+      navigate('/domains');
     } else {
       navigate(-1);
     }

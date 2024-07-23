@@ -46,7 +46,7 @@ const AddRuleForm = () => {
       domain: domainName,
       dialrule_domain: ''
     };
-  
+
     try {
       await dispatch(createDialRule(postData)).unwrap();
       navigate('/domains/domainDetails', { state: { domainName } });
@@ -65,7 +65,7 @@ const AddRuleForm = () => {
       'To Owned Device Add Header', 'To User', 'To User Add Header', 'To Domain', 'To User One Shot',
       'To User Residential', 'To User Residential Add Header', 'To User w/Privacy', 'Own Account',
       'Set-Forward', 'Set-Forward-Busy', 'To Connection w/ Privacy', 'Call Return', 'To V-Mail',
-      'Tapping', 'Call Pickup'
+      'Tapping', 'Call Pickup', "To-Connection-Add-Header", "sip:start@to-connection"
     ],
     to_scheme: ['sip:', '[*]', ''],
     to_host: ['<OwnDomain>', '<OwnUser>', '<OwnName>'],

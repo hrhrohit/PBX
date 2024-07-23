@@ -84,11 +84,13 @@ const EditRuleForm = () => {
       'Call Return',
       'To V-Mail',
       'Tapping',
-      'Call Pickup'
+      'Call Pickup',
+      "To-Connection-Add-Header",
+      "sip:start@to-connection"
     ],
     to_scheme: ['sip:', '[*]', ''],
-    to_host: ['', '', ''],
-    from_host: ['', '', '']
+    to_host: ['<OwnDomain>', '<OwnUser>', '<OwnName>'],
+    from_host: ['<OwnDomain>', '<OwnUser>', '<OwnName>']
   };
 
   return (
